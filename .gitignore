@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Django
+db.sqlite3
+
+
+
+# IDEs
+.vscode/
+.idea/
+
+# FAISS index and secrets
+*.faiss
+.env
+
+# System
+.DS_Store
+Thumbs.db
+
+.env

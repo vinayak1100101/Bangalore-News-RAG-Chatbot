@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bangalore News AI</title>
+    <style>
+        /* Basic CSS for a clean look */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 2em;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.7em;
+            font-weight: bold;
+            color: #555;
+        }
+        select, textarea, button {
+            padding: 0.8em;
+            margin-bottom: 1.5em;
+            width: calc(100% - 16px); /* Account for padding */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 80px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .answer-container {
+            margin-top: 2em;
+            background-color: #eaf6fd;
+            padding: 1.5em;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+            max-width: 700px;
+            margin: 2em auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        .answer-container h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 0.8em;
+        }
+        .answer-container p {
+            line-height: 1.6;
+            white-space: pre-wrap; /* Preserve line breaks from LLM */
+        }
+    </style>
+</head>
+<body>
+    <h1>Bangalore News AI Assistant</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="agent_persona">Select Agent Persona:</label>
+        <select name="agent_persona" id="agent_persona">
+            {% for agent_id, config in agent_configs.items %}
+                <option value="{{ agent_id }}" {% if selected_agent == agent_id %}selected{% endif %}>
+                    {{ config.display_name }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="user_query">Your Query:</label><br>
+        <textarea name="user_query" rows="5" cols="50" placeholder="Ask something about Bangalore news...">{{ user_query }}</textarea><br><br>
+        <button type="submit">Get Answer</button>
+    </form>
+
+    {% if answer %}
+        <div class="answer-container">
+            <h3>Answer:</h3>
+            <p>{{ answer|linebreaksbr }}</p>
+        </div>
+    {% endif %}
+
+    <script>
+        // Optional: Keep selected agent in dropdown after submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElement = document.getElementById('agent_persona');
+            const selectedValue = "{{ selected_agent }}"; // Value from Django context
+            if (selectedValue) {
+                selectElement.value = selectedValue;
+            }
+        });
+    </script>
+</body>
+</html>

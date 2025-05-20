@@ -1,0 +1,6 @@
+Django~=5.2
+pandas
+sentence-transformers
+faiss-cpu
+numpy
+openai
