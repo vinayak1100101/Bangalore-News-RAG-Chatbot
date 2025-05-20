@@ -25,8 +25,9 @@ This project is a Django-based web application that implements a Retrieval Augme
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/my-ai-showcase.git](https://github.com/your-username/my-ai-showcase.git)
-    cd my-ai-showcase
+   git clone https://github.com/vinayak1100101/Bangalore-News-RAG-Chatbot.git
+   cd Bangalore-News-RAG-Chatbot
+
     ```
 
 2.  **Create a virtual environment (recommended):**
